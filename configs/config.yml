@@ -1,0 +1,8 @@
+port: "8000"
+
+db:
+  host: "go-db"
+  port: "5432"
+  username: "root"
+  dbname: "go1"
+  sslmode: "disable"
