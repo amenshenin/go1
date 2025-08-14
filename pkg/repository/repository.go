@@ -1,8 +1,12 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	todo "github.com/amenshenin/go1"
+	"github.com/jmoiron/sqlx"
+)
 
 type Autorization interface {
+	CreateUser(user todo.User) (int, error)
 }
 
 type TodoList interface {
@@ -11,12 +15,14 @@ type TodoList interface {
 type TodoItem interface {
 }
 
-type Repository interface {
+type Repository struct {
 	Autorization
 	TodoList
 	TodoItem
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Autorization: NewAuthPostgres(db),
+	}
 }
