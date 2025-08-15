@@ -17,7 +17,6 @@ func main() {
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
-
 	if err := godotenv.Load(); err != nil {
 		logrus.Fatalf("error loaading env file: %s", err.Error())
 	}
@@ -37,7 +36,6 @@ func main() {
 	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
-
 	srv := new(todo.Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRouts()); err != nil {
 		logrus.Fatalf("error occured while running http server: %s", err.Error())
@@ -49,3 +47,13 @@ func initConfig() error {
 	viper.SetConfigName("config")
 	return viper.ReadInConfig()
 }
+
+// func test(s string) {
+// 	file := "/home/root/work/.test.log"
+// 	f, err := os.Open(file)
+// 	if err != nil {
+// 		logrus.Fatalf("%s", err.Error())
+// 	}
+// 	defer f.Close()
+// 	f.WriteString(s)
+// }
